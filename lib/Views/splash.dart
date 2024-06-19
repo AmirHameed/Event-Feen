@@ -29,7 +29,7 @@ class _SplashState extends State<Splash> {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [primary, black])),
-          child: Image.asset('assets/icons/logo.png')),
+          child: Image.asset('assets/logo.jpeg')),
     );
   }
 }
