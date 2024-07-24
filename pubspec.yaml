@@ -43,7 +43,19 @@ dependencies:
   google_fonts: ^4.0.3
   readmore: ^2.2.0
   flutter_rating_bar: ^4.0.1
-  
+  firebase_core: ^2.11.0
+  firebase_auth: ^4.5.0
+  cloud_firestore: ^4.6.0
+  firebase_storage: ^11.1.2
+  shared_preferences: ^2.0.20
+  uuid: ^3.0.7
+  image_picker:
+  flutter_local_notifications: ^14.1.1
+  firebase_messaging: ^14.6.7
+  easy_localization: ^3.0.1
+  video_player: ^2.8.7
+  audioplayers: ^6.0.0
+  chewie: ^1.8.1
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1

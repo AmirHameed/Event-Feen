@@ -9,12 +9,14 @@ class Textfield extends StatelessWidget {
       this.prefix,
       this.readOnly,
       this.hint,
+        this.onChanged,
       this.help,
       this.hintColor,
       this.isPassword,
       this.suffix});
   TextEditingController? text;
   final String? label;
+  final Function(String)? onChanged;
   final String? prefix;
   final IconData? suffix;
   final String? hint;
@@ -26,6 +28,7 @@ class Textfield extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       controller: text,
+      onChanged: onChanged,
       decoration: InputDecoration(
         isDense: true,
         filled: true,

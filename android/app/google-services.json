@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "707110156842",
+    "project_id": "event-feen",
+    "storage_bucket": "event-feen.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:707110156842:android:7c5b22b9e5e864de846153",
+        "android_client_info": {
+          "package_name": "com.example.event_music_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCMRy8x3wFz0HM_addEJw9ktsl9DZEnM8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

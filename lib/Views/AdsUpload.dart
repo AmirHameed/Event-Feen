@@ -194,7 +194,7 @@ class AdsUpload extends StatelessWidget {
                   border: Border.all(color: Colors.white30)),
               child: Row(
                 children: [
-                  Image.asset('assets/icons/location.png'),
+                  Image.asset('assets/icons/location.png',width: 25,height: 25,),
                   SizedBox(
                     width: 10,
                   ),
