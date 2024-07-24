@@ -70,7 +70,7 @@ class _MyInterestState extends State<MyInterest> {
                             },
                             icon: Icon(Icons.arrow_back_ios, color: white)))),
                 Padding(
-                  padding: const EdgeInsets.only(right: 20),
+                  padding: const EdgeInsets.only(right: 20,top: 10),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,

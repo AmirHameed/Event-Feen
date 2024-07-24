@@ -180,7 +180,6 @@ class _HomePageState extends State<HomePage> {
                                   ? SizedBox()
                                   : GestureDetector(
                                       onHorizontalDragEnd: (details) {
-                                        print('detail===>${details.primaryVelocity}');
                                         if (details.primaryVelocity! > 0) {
                                           _showTransparentDialog(context, details.primaryVelocity!, band);
                                         } else if (details.primaryVelocity! < 0) {
@@ -207,7 +206,7 @@ class _HomePageState extends State<HomePage> {
                                             Positioned(
                                                 bottom: 0,
                                                 child: Container(
-                                                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+                                                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                                                     width: MediaQuery.of(context).size.width,
                                                     decoration: BoxDecoration(
                                                       color: primary,

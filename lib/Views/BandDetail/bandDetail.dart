@@ -35,7 +35,7 @@ class _BandDetailsState extends State<BandDetails> {
                         LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [primary, black])),
                 child: Column(children: [
                   SizedBox(
-                    height: 30,
+                    height: 40,
                   ),
                   Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -54,9 +54,7 @@ class _BandDetailsState extends State<BandDetails> {
                         Text('${band.name}  ', style: t24),
                         Image.asset('assets/icons/more.png')
                       ])),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  SizedBox(height: 10),
                   band.image.isEmpty
                       ? CircleAvatar(radius: 50, backgroundImage: AssetImage('assets/bands.png'))
                       : CircleAvatar(radius: 50, backgroundImage: NetworkImage(band.image)),
@@ -191,14 +189,68 @@ class _BandDetailsState extends State<BandDetails> {
                                   textAlign: TextAlign.center,
                                   style: TextStyle(fontSize: 18, color: yellow, fontWeight: FontWeight.w500))
                             ]),
-                            Row(children: [
-                              Text(
-                                'View Feedback',
-                                style: Lightt14,
-                              ),
-                              IconButton(onPressed: () {}, icon: Icon(Icons.arrow_drop_down, color: white, size: 30))
-                            ])
+                            GestureDetector(
+                              behavior: HitTestBehavior.translucent,
+                              onTap: () {
+                                setState(() {
+                                  switchButton = !switchButton;
+                                });
+                              },
+                              child: Row(children: [
+                                Text(
+                                  'View Feedback',
+                                  style: Lightt14,
+                                ),
+                                Icon(switchButton ? Icons.arrow_drop_up : Icons.arrow_drop_down, color: white, size: 30)
+                              ]),
+                            )
                           ])),
+                  !switchButton
+                      ? SizedBox()
+                      : Expanded(
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              padding: EdgeInsets.only(top: 10),
+                              itemCount: band.reviews.length,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (c, index) {
+                                final review = band.reviews[index];
+                                return Container(
+                                  width: MediaQuery.sizeOf(context).width,
+                                  padding: EdgeInsets.symmetric(horizontal: 10),
+                                  child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              CircleAvatar(
+                                                radius: 25,
+                                                backgroundImage: review.image.isEmpty
+                                                    ? AssetImage('assets/profile.png')
+                                                    : NetworkImage(review.image) as ImageProvider,
+                                              ),
+                                              SizedBox(width: 10),
+                                              Expanded(
+                                                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                                  Text(
+                                                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
+                                                      style: Lightt11),
+                                                  SizedBox(height: 10),
+                                                  Text(review.dateTime.toString(), style: Lightt11)
+                                                ]),
+                                              )
+                                            ]),
+                                        Divider(
+                                          thickness: 1,
+                                          color: white.withOpacity(0.2),
+                                        )
+                                      ]),
+                                );
+                              }),
+                        ),
                   Padding(padding: const EdgeInsets.symmetric(horizontal: 15), child: Divider(color: white)),
                   SizedBox(height: 10),
                   Theme(
@@ -221,6 +273,7 @@ class _BandDetailsState extends State<BandDetails> {
                     band.videos.isEmpty
                         ? Center(child: Text('Not videos upload yet .when band uploaded videos its show here...'))
                         : GridView.builder(
+                            padding: EdgeInsets.zero,
                             itemCount: band.videos.length,
                             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 3, crossAxisSpacing: 0, mainAxisSpacing: 0),
@@ -248,6 +301,7 @@ class _BandDetailsState extends State<BandDetails> {
                     band.photos.isEmpty
                         ? Center(child: Text('Not photos upload yet .when band uploaded photos its show here...'))
                         : GridView.builder(
+                            padding: EdgeInsets.zero,
                             itemCount: band.photos.length,
                             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 3, crossAxisSpacing: 0, mainAxisSpacing: 0),

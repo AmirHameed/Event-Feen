@@ -122,7 +122,7 @@ class BandModel {
 
     print('timeStamp $timestamp');
 
-    final DateTime dateTime =timestamp.isEmpty?DateTime.now(): DateTime.parse(timestamp);
+    final DateTime dateTime = timestamp.isEmpty ? DateTime.now() : DateTime.parse(timestamp);
     final reviewSerialization = json.containsKey('reviews') ? json['reviews'] : null;
     final reviews = reviewSerialization == null
         ? <Review>[]
@@ -178,7 +178,7 @@ class BandModel {
         'name': name,
         'lat': lat,
         'long': long,
-        'dateTime':dateTime.toString(),
+        'dateTime': dateTime.toString(),
         'location': location,
         'profileId': profileId,
         'description': description,
@@ -204,22 +204,34 @@ class Review {
   final DateTime dateTime;
 
   Review(
-      {required this.uuId, required this.name, required this.description, required this.dateTime, required this.image,required this.profileId});
+      {required this.uuId,
+      required this.name,
+      required this.description,
+      required this.dateTime,
+      required this.image,
+      required this.profileId});
 
   factory Review.fromJson(Map<String, dynamic> json) {
     final String uuid = json.containsKey('uuId') ? json['uuId'] : '';
     final String profileId = json.containsKey('profileId') ? json['profileId'] : '';
     final String description = json.containsKey('description') ? json['description'] ?? '' : '';
     final String name = json.containsKey('name') ? json['name'] ?? '' : '';
-    final Timestamp timestamp = json.containsKey('dateTime') ? json['dateTime'] ?? '' : '';
-    final DateTime dateTime = timestamp.toDate();
+    final String timestamp = json.containsKey('dateTime') ? json['dateTime'] ?? '' : '';
+    final DateTime dateTime = DateTime.parse(timestamp);
     final image = json.containsKey('image') ? json['image'] ?? '' : '';
 
-    return Review(uuId: uuid, name: name, image: image, description: description, dateTime: dateTime,profileId: profileId);
+    return Review(
+        uuId: uuid, name: name, image: image, description: description, dateTime: dateTime, profileId: profileId);
   }
 
-  Map<String, dynamic> toJson() =>
-      {'uuId': uuId, 'name': name, 'description': description, 'image': image, 'dateTime': dateTime,'profileId':profileId};
+  Map<String, dynamic> toJson() => {
+        'uuId': uuId,
+        'name': name,
+        'description': description,
+        'image': image,
+        'dateTime': dateTime,
+        'profileId': profileId
+      };
 }
 
 class Track {

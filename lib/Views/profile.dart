@@ -5,8 +5,6 @@ import 'package:event_music_app/Views/myInterest.dart';
 import 'package:event_music_app/Views/settings.dart';
 import 'package:event_music_app/Views/subscription.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 import '../Constants/colors.dart';
 import '../Helper/shared_preference_helper.dart';
 import '../Helper/texts.dart';
@@ -45,9 +43,7 @@ class _ProfileState extends State<Profile> {
         body: user == null
             ? Center(child: CircularProgressIndicator())
             : Container(
-                padding: EdgeInsets.only(
-                  top: 30,
-                ),
+                padding: EdgeInsets.only(top: 40),
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
@@ -91,13 +87,14 @@ class _ProfileState extends State<Profile> {
                     user!.uniqueId,
                     style: Lightt14,
                   ),
-                  Text(
-                    user!.description,
-                    textAlign: TextAlign.center,
-                    style: Regulart14,
-                  ),
-                  SizedBox(
-                    height: 5,
+                  SizedBox(height: 8),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5,bottom: 5,left: 10,right: 10),
+                    child: Text(
+                      user!.description,
+                      textAlign: TextAlign.center,
+                      style: Regulart14,
+                    ),
                   ),
                   InkWell(
                     onTap: () {

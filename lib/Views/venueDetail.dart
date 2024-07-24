@@ -27,8 +27,7 @@ class VenueDetail extends StatelessWidget {
         body: Container(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            child: SingleChildScrollView(
-                child: Stack(alignment: Alignment.center, clipBehavior: Clip.none, children: [
+            child: Stack(alignment: Alignment.topCenter, children: [
               Container(
                   padding: EdgeInsets.only(top: 20, right: 10, left: 10),
                   height: 180,
@@ -75,64 +74,46 @@ class VenueDetail extends StatelessWidget {
                               SizedBox(width: 5),
                               Text(venue.location, style: Regulart14)
                             ])),
-                        SizedBox(
-                          height: 10,
-                        ),
+                        SizedBox(height: 10),
                         Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Row(
-                            children: [
-                              Text(
-                                'Description',
-                                textAlign: TextAlign.start,
-                                style: Regulart16,
-                              ),
-                            ],
-                          ),
-                        ),
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(children: [Text('Description', textAlign: TextAlign.start, style: Regulart16)])),
                         Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: ReadMoreText(
-                            venue.description,
-                            trimLines: 2,
-                            colorClickableText: blue,
-                            style: Lightt12,
-                            trimMode: TrimMode.Line,
-                            trimCollapsedText: 'Read more',
-                            trimExpandedText: 'Read less',
-                            moreStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: blue),
-                          ),
-                        ),
+                            padding: const EdgeInsets.all(10.0),
+                            child: ReadMoreText(venue.description,
+                                trimLines: 2,
+                                colorClickableText: blue,
+                                style: Lightt12,
+                                trimMode: TrimMode.Line,
+                                trimCollapsedText: 'Read more',
+                                trimExpandedText: 'Read less',
+                                moreStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: blue))),
                         SizedBox(
                           height: 10,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            RatingBar(
-                              itemSize: 20,
-                              initialRating: venue.totalRating,
-                              direction: Axis.horizontal,
-                              allowHalfRating: true,
-                              itemCount: 5,
-                              ratingWidget: RatingWidget(
-                                full: Image.asset('assets/icons/star.png'),
-                                half: Image.asset('assets/icons/star1.png'),
-                                empty: Image.asset('assets/icons/starB.png'),
-                              ),
-                              itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
-                              onRatingUpdate: (rating) {
-                                print(rating);
-                              },
-                            ),
-                            Text(
-                              '  ${venue.totalRating}',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 18, color: yellow, fontWeight: FontWeight.w500),
-                            )
-                          ],
-                        ),
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              RatingBar(
+                                  itemSize: 20,
+                                  initialRating: venue.totalRating,
+                                  direction: Axis.horizontal,
+                                  allowHalfRating: true,
+                                  itemCount: 5,
+                                  ratingWidget: RatingWidget(
+                                    full: Image.asset('assets/icons/star.png'),
+                                    half: Image.asset('assets/icons/star1.png'),
+                                    empty: Image.asset('assets/icons/starB.png'),
+                                  ),
+                                  itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
+                                  onRatingUpdate: (rating) {
+                                    print(rating);
+                                  }),
+                              Text('  ${venue.totalRating}',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 18, color: yellow, fontWeight: FontWeight.w500))
+                            ]),
                         SizedBox(
                             height: 200,
                             child: ListView.builder(
@@ -182,17 +163,17 @@ class VenueDetail extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: ClipRRect(borderRadius: BorderRadius.circular(20), child: Image.network(mapUrl)),
-                        )
+                        ),
                       ]))),
               Positioned(
-                  bottom: -40,
+                  top: 120,
                   child: CircleAvatar(
                     radius: 50,
                     backgroundImage: venue.image.isEmpty
                         ? AssetImage('assets/image.png')
                         : NetworkImage(venue.image) as ImageProvider,
                   ))
-            ]))));
+            ])));
   }
 }
 
