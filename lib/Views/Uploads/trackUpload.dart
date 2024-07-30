@@ -127,9 +127,7 @@ class TrackUpload extends StatelessWidget {
               border: OutlineInputBorder(
                   borderSide: BorderSide(color: white), // Set the border color
                   borderRadius: BorderRadius.circular(10)))),
-      SizedBox(
-        height: 30,
-      ),
+      SizedBox(height: 30),
       Padding(
           padding: const EdgeInsets.symmetric(horizontal: 120),
           child: MyButton(color: primary, name: 'Upload', onPressed: () {}))

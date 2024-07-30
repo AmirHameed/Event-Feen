@@ -20,6 +20,7 @@ class BandModel {
   final List<String> photos;
   final List<Track> tracks;
   final List<Video> videos;
+  final GeoPoint geoPoint;
 
   BandModel(
       {required this.uuId,
@@ -38,6 +39,7 @@ class BandModel {
       required this.totalRating,
       required this.reviews,
       required this.photos,
+        required this.geoPoint,
       required this.tracks,
       required this.videos});
 
@@ -46,19 +48,22 @@ class BandModel {
       required String description,
       required String image,
       required String profileId,
+        required GeoPoint geoPoint,
+        required String location,
       required List<String> genre,
       required String googleLink,
       required String facebookLink})
       : this(
             uuId: '',
             name: name,
-            location: '111 S Grand Ave, Los Angeles, United States',
+            location: location,
             description: description,
             image: image,
             profileId: profileId,
             lat: 0.0,
             long: 0.0,
             genre: genre,
+            geoPoint: geoPoint,
             dateTime: DateTime.now(),
             googleLink: googleLink,
             facebookLink: facebookLink,
@@ -88,6 +93,7 @@ class BandModel {
           dateTime: dateTime ?? this.dateTime,
           description: description,
           image: image,
+          geoPoint: geoPoint,
           location: location ?? this.location,
           profileId: profileId,
           genre: genre,
@@ -103,6 +109,7 @@ class BandModel {
   factory BandModel.fromJson(Map<String, dynamic> json, String id) {
     final String location = json.containsKey('location') ? json['location'] ?? '' : '';
     final String name = json.containsKey('name') ? json['name'] ?? '' : '';
+    final GeoPoint geoPoint = json.containsKey('geoPoint') ? json['geoPoint'] ?? GeoPoint(0.0, 0.0) : GeoPoint(0.0, 0.0);
     final String profileId = json.containsKey('profileId') ? json['profileId'] ?? '' : '';
     final String description = json.containsKey('description') ? json['description'] ?? '' : '';
     final image = json.containsKey('image') ? json['image'] ?? '' : '';
@@ -154,6 +161,7 @@ class BandModel {
 
     return BandModel(
         uuId: id,
+        geoPoint: geoPoint,
         name: name,
         dateTime: dateTime,
         lat: lat,
@@ -180,6 +188,7 @@ class BandModel {
         'long': long,
         'dateTime': dateTime.toString(),
         'location': location,
+        'geoPoint': geoPoint,
         'profileId': profileId,
         'description': description,
         'image': image,

@@ -9,10 +9,12 @@ class MyButton extends StatelessWidget {
   final void Function()? onPressed;
   final String? image;
   final Color color;
+  TextStyle fontStyle;
   MyButton(
       {required this.name,
       required this.onPressed,
       required this.color,
+        this.fontStyle=Boldt16,
       this.image});
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class MyButton extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               image == null ? Container() : Image.asset(image!),
-              Text(name, style: Boldt16),
+              Text(name, style: fontStyle),
             ],
           )),
     );

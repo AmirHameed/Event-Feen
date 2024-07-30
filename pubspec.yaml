@@ -56,6 +56,10 @@ dependencies:
   video_player: ^2.8.7
   audioplayers: ^6.0.0
   chewie: ^1.8.1
+  google_maps_flutter: ^2.3.1
+  google_places_flutter: ^2.0.9
+  geolocator: ^9.0.2
+  geocoding: ^3.0.0
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1

@@ -36,7 +36,7 @@ class _SignUpState extends State<SignUp> {
       final User user = await FirebaseAuthHelper.instance().createUserWithEmailPassword(email.text, password.text);
       if (user.email == null) return null;
       final updatedImage =
-      _profileImage == null ? '' : await FirebaseStorageHelper.instance().uploadImage(File(_profileImage!.path));
+          _profileImage == null ? '' : await FirebaseStorageHelper.instance().uploadImage(File(_profileImage!.path));
       final initialUser = LoginResponse.initial(
           uuId: user.uid,
           email: user.email ?? '',
@@ -108,43 +108,37 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     ImageProvider<Object> image = AssetImage('assets/mainSplash.png');
     image = (_profileImage?.path == null ? AssetImage('assets/mainSplash.png') : FileImage(File(_profileImage!.path)))
-    as ImageProvider<Object>;
+        as ImageProvider<Object>;
 
     return Scaffold(
         body: Container(
             padding: EdgeInsets.symmetric(horizontal: 20),
-            height: MediaQuery
-                .of(context)
-                .size
-                .height,
-            width: MediaQuery
-                .of(context)
-                .size
-                .width,
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 gradient:
-                LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [primary, black])),
+                    LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [primary, black])),
             child: SingleChildScrollView(
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  SizedBox(
-                    height: 40,
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      widget.type == 'feen'
-                          ? 'Feen'
-                          : widget.type == 'bands'
+              SizedBox(
+                height: 40,
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Text(
+                  widget.type == 'feen'
+                      ? 'Feen'
+                      : widget.type == 'bands'
                           ? 'Bands'
                           : 'Venues',
-                      style: t24,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  _profileImage != null
-                      ? Container(
+                  style: t24,
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              _profileImage != null
+                  ? Container(
                       height: 120,
                       width: 250,
                       margin: EdgeInsets.symmetric(horizontal: 60),
@@ -155,190 +149,191 @@ class _SignUpState extends State<SignUp> {
                             color: white,
                           ),
                           image: DecorationImage(image: image, fit: BoxFit.cover)))
-                      : Container(
-                    height: 120,
-                    width: 250,
-                    alignment: Alignment.center,
-                    margin: EdgeInsets.symmetric(horizontal: 60),
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 40),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(
-                          color: white,
-                        )),
-                    child: GestureDetector(
-                      onTap: () => _pickImage(),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset('assets/icons/gallery.png'),
-                              Icon(
-                                Icons.arrow_upward_rounded,
-                                size: 15,
-                                color: white,
-                              ),
-                            ],
-                          ),
-                          Text(
-                            'Add Photos',
-                            style: Lightt12,
-                          )
-                        ],
+                  : Container(
+                      height: 120,
+                      width: 250,
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.symmetric(horizontal: 60),
+                      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 40),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: white,
+                          )),
+                      child: GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () => _pickImage(),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset('assets/icons/gallery.png'),
+                                Icon(
+                                  Icons.arrow_upward_rounded,
+                                  size: 15,
+                                  color: white,
+                                ),
+                              ],
+                            ),
+                            Text(
+                              'Add Photos',
+                              style: Lightt12,
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 40,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Text(
-                      widget.type == 'feen'
-                          ? 'Username'
-                          : widget.type == 'bands'
+              SizedBox(
+                height: 40,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: Text(
+                  widget.type == 'feen'
+                      ? 'Username'
+                      : widget.type == 'bands'
                           ? 'Band Name'
                           : 'Venue Name',
-                      style: Lightt14,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Textfield(
-                    onChanged: (String? value) {
-                      if (value == null) return;
-                      if (value.isNotEmpty) {
-                        setState(() {
-                          errorText = '';
-                        });
-                      }
-                    },
-                    text: name,
-                    prefix: 'assets/icons/user.png',
-                    hint: widget.type == 'feen'
-                        ? 'Username'
-                        : widget.type == 'bands'
+                  style: Lightt14,
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Textfield(
+                onChanged: (String? value) {
+                  if (value == null) return;
+                  if (value.isNotEmpty) {
+                    setState(() {
+                      errorText = '';
+                    });
+                  }
+                },
+                text: name,
+                prefix: 'assets/icons/user.png',
+                hint: widget.type == 'feen'
+                    ? 'Username'
+                    : widget.type == 'bands'
                         ? 'Band Name'
                         : 'Venue Name',
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Text(
-                      LocaleKeys.Email.tr(),
-                      style: Lightt14,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Textfield(
-                    onChanged: (String? value) {
-                      if (value == null) return;
-                      if (value.isNotEmpty) {
-                        setState(() {
-                          errorText = '';
-                        });
-                      }
-                    },
-                    text: email,
-                    prefix: 'assets/icons/email.png',
-                    hint: 'Email',
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  widget.type == 'venues'
-                      ? Padding(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Text(
-                      LocaleKeys.Location.tr(),
-                      style: Lightt14,
-                    ),
-                  )
-                      : SizedBox(),
-                  SizedBox(
-                    height: widget.type == 'venues' ? 5 : 0,
-                  ),
-                  widget.type == 'venues'
-                      ? Textfield(
-                    onChanged: (String? value) {
-                      if (value == null) return;
-                      if (value.isNotEmpty) {
-                        setState(() {
-                          errorText = '';
-                        });
-                      }
-                    },
-                    text: location,
-                    prefix: 'assets/icons/email.png',
-                    hint: 'Location',
-                  )
-                      : SizedBox(),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Text(
-                      LocaleKeys.Password.tr(),
-                      style: Lightt14,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Textfield(
-                    onChanged: (String? value) {
-                      if (value == null) return;
-                      if (value.isNotEmpty) {
-                        setState(() {
-                          errorText = '';
-                        });
-                      }
-                    },
-                    text: password,
-                    prefix: 'assets/icons/keyPassword.png',
-                    suffix: Icons.remove_red_eye_outlined,
-                    hint: 'Password',
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Text(
-                      'Confirm Password',
-                      style: Lightt14,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Textfield(
-                    onChanged: (String? value) {
-                      if (value == null) return;
-                      if (value.isNotEmpty) {
-                        setState(() {
-                          errorText = '';
-                        });
-                      }
-                    },
-                    text: confirmPassword,
-                    prefix: 'assets/icons/keyPassword.png',
-                    suffix: Icons.remove_red_eye_outlined,
-                    hint: 'Confirm Password',
-                  ),
-                  SizedBox(
-                    height: 60,
-                  ),
-                  errorText.isEmpty
-                      ? const SizedBox()
-                      : Container(
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: Text(
+                  LocaleKeys.Email.tr(),
+                  style: Lightt14,
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Textfield(
+                onChanged: (String? value) {
+                  if (value == null) return;
+                  if (value.isNotEmpty) {
+                    setState(() {
+                      errorText = '';
+                    });
+                  }
+                },
+                text: email,
+                prefix: 'assets/icons/email.png',
+                hint: 'Email',
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              widget.type == 'venues'
+                  ? Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Text(
+                        LocaleKeys.Location.tr(),
+                        style: Lightt14,
+                      ),
+                    )
+                  : SizedBox(),
+              SizedBox(
+                height: widget.type == 'venues' ? 5 : 0,
+              ),
+              widget.type == 'venues'
+                  ? Textfield(
+                      onChanged: (String? value) {
+                        if (value == null) return;
+                        if (value.isNotEmpty) {
+                          setState(() {
+                            errorText = '';
+                          });
+                        }
+                      },
+                      text: location,
+                      prefix: 'assets/icons/email.png',
+                      hint: 'Location',
+                    )
+                  : SizedBox(),
+              SizedBox(
+                height: 5,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: Text(
+                  LocaleKeys.Password.tr(),
+                  style: Lightt14,
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Textfield(
+                onChanged: (String? value) {
+                  if (value == null) return;
+                  if (value.isNotEmpty) {
+                    setState(() {
+                      errorText = '';
+                    });
+                  }
+                },
+                text: password,
+                prefix: 'assets/icons/keyPassword.png',
+                suffix: Icons.remove_red_eye_outlined,
+                hint: 'Password',
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: Text(
+                  'Confirm Password',
+                  style: Lightt14,
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Textfield(
+                onChanged: (String? value) {
+                  if (value == null) return;
+                  if (value.isNotEmpty) {
+                    setState(() {
+                      errorText = '';
+                    });
+                  }
+                },
+                text: confirmPassword,
+                prefix: 'assets/icons/keyPassword.png',
+                suffix: Icons.remove_red_eye_outlined,
+                hint: 'Confirm Password',
+              ),
+              SizedBox(
+                height: 60,
+              ),
+              errorText.isEmpty
+                  ? const SizedBox()
+                  : Container(
                       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
                       margin: const EdgeInsets.only(bottom: 20, top: 15),
                       decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), border: Border.all(color: red)),
@@ -347,68 +342,68 @@ class _SignUpState extends State<SignUp> {
                         const SizedBox(width: 5),
                         Text(errorText, style: TextStyle(color: Colors.red, fontSize: 14))
                       ])),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 120),
-                    child: MyButton(
-                      color: primary,
-                      name: 'SignUp',
-                      onPressed: () {
-                        if (name.text.isEmpty) {
-                          setState(() {
-                            errorText = LocaleKeys.Name_is_required.tr();
-                          });
-                          return;
-                        }
-                        if (email.text.isEmpty) {
-                          setState(() {
-                            errorText = LocaleKeys.email_is_required.tr();
-                          });
-                          return;
-                        }
-                        // if (location.text.isEmpty) {
-                        //   setState(() {
-                        //     errorText = LocaleKeys.email_is_required.tr();
-                        //   });
-                        //   return;
-                        // }
-                        if (password.text.isEmpty) {
-                          setState(() {
-                            errorText = LocaleKeys.password_is_required.tr();
-                          });
-                          return;
-                        }
-                        if (confirmPassword.text.isEmpty) {
-                          setState(() {
-                            errorText = LocaleKeys.Confirm_password_is_required.tr();
-                          });
-                          return;
-                        }
-                        _singUpWithEmailPassword(context);
-                      },
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 120),
+                child: MyButton(
+                  color: primary,
+                  name: 'SignUp',
+                  onPressed: () {
+                    if (name.text.isEmpty) {
+                      setState(() {
+                        errorText = LocaleKeys.Name_is_required.tr();
+                      });
+                      return;
+                    }
+                    if (email.text.isEmpty) {
+                      setState(() {
+                        errorText = LocaleKeys.email_is_required.tr();
+                      });
+                      return;
+                    }
+                    // if (location.text.isEmpty) {
+                    //   setState(() {
+                    //     errorText = LocaleKeys.email_is_required.tr();
+                    //   });
+                    //   return;
+                    // }
+                    if (password.text.isEmpty) {
+                      setState(() {
+                        errorText = LocaleKeys.password_is_required.tr();
+                      });
+                      return;
+                    }
+                    if (confirmPassword.text.isEmpty) {
+                      setState(() {
+                        errorText = LocaleKeys.Confirm_password_is_required.tr();
+                      });
+                      return;
+                    }
+                    _singUpWithEmailPassword(context);
+                  },
+                ),
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              InkWell(
+                  onTap: () {
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                  },
+                  child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    Text(
+                      "Already have an account? ",
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: white,
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 50,
-                  ),
-                  InkWell(
-                      onTap: () {
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
-                      },
-                      child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                        Text(
-                          "Already have an account? ",
-                          style: TextStyle(
+                    Text('Login',
+                        style: TextStyle(
                             fontSize: 12,
-                            color: white,
-                          ),
-                        ),
-                        Text('Login',
-                            style: TextStyle(
-                                fontSize: 12,
-                                color: blue,
-                                fontWeight: FontWeight.w600,
-                                decoration: TextDecoration.underline))
-                      ]))
-                ]))));
+                            color: blue,
+                            fontWeight: FontWeight.w600,
+                            decoration: TextDecoration.underline))
+                  ]))
+            ]))));
   }
 }

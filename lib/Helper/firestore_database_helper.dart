@@ -9,6 +9,8 @@ List<BandModel> dummyBands = [
       name: 'Coke Studio',
       description: 'This song is about love between a romantic couple',
       image: '',
+      geoPoint: GeoPoint(0.0,0.0),
+      location: '',
       profileId: '@amir4567',
       genre: ['Rock', 'Soft', 'Traditional'],
       googleLink: 'https:google/cokestudio.com',
@@ -18,6 +20,8 @@ List<BandModel> dummyBands = [
       profileId: '@amir4567',
       description: 'This song is about love between a romantic couple',
       image: '',
+      geoPoint: GeoPoint(0.0,0.0),
+      location: '',
       genre: ['Rock', 'Soft', 'Traditional'],
       googleLink: 'https:google/cokestudio.com',
       facebookLink: 'https:facebook/cokestudio.com')
@@ -25,6 +29,8 @@ List<BandModel> dummyBands = [
 List<BandModel> dummyVenues = [
   BandModel.initial(
       name: 'Walt Disney Concert Hall',
+      geoPoint: GeoPoint(0.0,0.0),
+      location: '',
       description:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
       image: '',
@@ -88,6 +94,7 @@ class FirestoreDatabaseHelper {
         .timeout(_timeoutDuration);
     return documentReferences.docs.map((doc) => BandModel.fromJson(doc.data(), doc.id)).toList();
   }
+
   Future<List<BandModel>?> getVenues() async {
     final documentReferences = await _firebaseFirestore
         .collection(_VENUES)
@@ -102,10 +109,9 @@ class FirestoreDatabaseHelper {
       await _firebaseFirestore.collection(_BANDS).add(band.toJson());
     }
   }
-  Future<void> insertVenues() async {
-    for (var venue in dummyVenues) {
-      await _firebaseFirestore.collection(_VENUES).add(venue.toJson());
-    }
+
+  Future<void> insertVenues(BandModel venue) async {
+    await _firebaseFirestore.collection(_VENUES).add(venue.toJson());
   }
 
   ///chating

@@ -1,5 +1,6 @@
 import 'package:event_music_app/Helper/firebase_auth_helper.dart';
 import 'package:event_music_app/Views/AdsUpload.dart';
+import 'package:event_music_app/Views/create_venue.dart';
 import 'package:event_music_app/Views/loginScreen.dart';
 import 'package:event_music_app/Views/myInterest.dart';
 import 'package:event_music_app/Views/settings.dart';
@@ -117,6 +118,9 @@ class _ProfileState extends State<Profile> {
                     ),
                   ),
                   ListTile(
+                    onTap: (){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (_) => CreateVenue()));
+                    },
                     leading: Image.asset(
                       'assets/icons/profile.png',
                     ),

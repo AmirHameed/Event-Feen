@@ -16,7 +16,7 @@ TextStyle Lightt14 = TextStyle(
 );
 TextStyle Regulart16 =
     TextStyle(color: white, fontSize: 16, fontWeight: FontWeight.w400);
-TextStyle Boldt16 =
+const TextStyle Boldt16 =
     TextStyle(color: white, fontSize: 16, fontWeight: FontWeight.w500);
 TextStyle Regulart14 =
     TextStyle(color: lightWhite, fontSize: 14, fontWeight: FontWeight.w600);
