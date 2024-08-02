@@ -35,8 +35,7 @@ class _SignUpState extends State<SignUp> {
     try {
       final User user = await FirebaseAuthHelper.instance().createUserWithEmailPassword(email.text, password.text);
       if (user.email == null) return null;
-      final updatedImage =
-          _profileImage == null ? '' : await FirebaseStorageHelper.instance().uploadImage(File(_profileImage!.path));
+      final updatedImage = _profileImage == null ? '' : await FirebaseStorageHelper.instance().uploadImage(File(_profileImage!.path));
       final initialUser = LoginResponse.initial(
           uuId: user.uid,
           email: user.email ?? '',
@@ -134,9 +133,7 @@ class _SignUpState extends State<SignUp> {
                   style: t24,
                 ),
               ),
-              SizedBox(
-                height: 20,
-              ),
+              SizedBox(height: 20),
               _profileImage != null
                   ? Container(
                       height: 120,
@@ -161,10 +158,9 @@ class _SignUpState extends State<SignUp> {
                             color: white,
                           )),
                       child: GestureDetector(
-                        behavior: HitTestBehavior.translucent,
-                        onTap: () => _pickImage(),
-                        child: Column(
-                          children: [
+                          behavior: HitTestBehavior.translucent,
+                          onTap: () => _pickImage(),
+                          child: Column(children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -180,10 +176,7 @@ class _SignUpState extends State<SignUp> {
                               'Add Photos',
                               style: Lightt12,
                             )
-                          ],
-                        ),
-                      ),
-                    ),
+                          ]))),
               SizedBox(
                 height: 40,
               ),
@@ -304,13 +297,7 @@ class _SignUpState extends State<SignUp> {
               SizedBox(
                 height: 15,
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: Text(
-                  'Confirm Password',
-                  style: Lightt14,
-                ),
-              ),
+              Padding(padding: const EdgeInsets.only(left: 10), child: Text('Confirm Password', style: Lightt14)),
               SizedBox(
                 height: 5,
               ),

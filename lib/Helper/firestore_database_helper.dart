@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:event_music_app/data/venue_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../data/band_model.dart';
 import '../data/login_response.dart';
@@ -95,13 +96,13 @@ class FirestoreDatabaseHelper {
     return documentReferences.docs.map((doc) => BandModel.fromJson(doc.data(), doc.id)).toList();
   }
 
-  Future<List<BandModel>?> getVenues() async {
+  Future<List<Venue>?> getVenues() async {
     final documentReferences = await _firebaseFirestore
         .collection(_VENUES)
         .get(const GetOptions(source: Source.server))
         .timeout(_timeoutDuration);
     print('ducmentrefresen===>$documentReferences');
-    return documentReferences.docs.map((doc) => BandModel.fromJson(doc.data(), doc.id)).toList();
+    return documentReferences.docs.map((doc) => Venue.fromMap(doc.data(), doc.id)).toList();
   }
 
   Future<void> insertBands() async {
@@ -110,7 +111,7 @@ class FirestoreDatabaseHelper {
     }
   }
 
-  Future<void> insertVenues(BandModel venue) async {
+  Future<void> insertVenues(Venue venue) async {
     await _firebaseFirestore.collection(_VENUES).add(venue.toJson());
   }
 

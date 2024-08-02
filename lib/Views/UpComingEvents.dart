@@ -46,32 +46,32 @@ class _UpComingEventsState extends State<UpComingEvents> {
   List<BandModel>? venues = [];
   bool switchButton = false;
 
-  Future<void> getVenues() async {
-    try {
-      final allVenues = await FirestoreDatabaseHelper.instance().getVenues();
-      if (allVenues == null) {
-        setState(() {
-          isLoading = false;
-          errorMessage = 'Venues not found right now';
-        });
-        return;
-      }
-
-      setState(() {
-        venues = allVenues;
-        isLoading = false;
-      });
-    } catch (error) {
-      setState(() {
-        isLoading = false;
-        errorMessage = error.toString();
-      });
-    }
-  }
+  // Future<void> getVenues() async {
+  //   try {
+  //     final allVenues = await FirestoreDatabaseHelper.instance().getVenues();
+  //     if (allVenues == null) {
+  //       setState(() {
+  //         isLoading = false;
+  //         errorMessage = 'Venues not found right now';
+  //       });
+  //       return;
+  //     }
+  //
+  //     setState(() {
+  //       venues = allVenues;
+  //       isLoading = false;
+  //     });
+  //   } catch (error) {
+  //     setState(() {
+  //       isLoading = false;
+  //       errorMessage = error.toString();
+  //     });
+  //   }
+  // }
 
   @override
   void initState() {
-    getVenues();
+    // getVenues();
     super.initState();
   }
 

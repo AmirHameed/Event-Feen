@@ -27,7 +27,7 @@ class Venue {
     required this.capacity,
   });
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return {
       'name': name,
       'description': description,
@@ -35,7 +35,7 @@ class Venue {
       'latitude': latitude,
       'longitude': longitude,
       'image': image,
-      'facilities': facilities,
+      'facilities': facilities.map((e)=>e).toList(),
       'availableTimeSlots': availableTimeSlots.map((slot) => slot.toMap()).toList(),
       'capacity': capacity,
     };

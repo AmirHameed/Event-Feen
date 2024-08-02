@@ -1,9 +1,7 @@
 import 'package:event_music_app/Helper/firestore_database_helper.dart';
-import 'package:event_music_app/Views/location_picker.dart';
 import 'package:event_music_app/data/band_model.dart';
+import 'package:event_music_app/data/venue_model.dart';
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-
 import '../../Constants/colors.dart';
 import '../../Helper/texts.dart';
 
@@ -16,50 +14,41 @@ class CreateEvent extends StatefulWidget {
 
 class _CreateEventState extends State<CreateEvent> {
   final TextEditingController titleController = TextEditingController();
-
-  final TextEditingController facebookLinkController = TextEditingController();
-
-  final TextEditingController googleLinkController = TextEditingController();
-
   final TextEditingController descriptionController = TextEditingController();
-
-  final TextEditingController locationController = TextEditingController();
-
   final TextEditingController performerController = TextEditingController();
-
   final TextEditingController numberOfTicketsController = TextEditingController();
 
   String selectedCategory = 'Singer';
 
-  BandModel? _selectedVenue;
+  Venue? _selectedVenue;
   DateTime? _selectedDate;
   TimeOfDay? _startTime;
   TimeOfDay? _endTime;
-  List<BandModel> _venues = [];
+  List<Venue> _venues = [];
 
-  // bool _isTimeSlotAvailable(BandModel venue, DateTime date, TimeOfDay start, TimeOfDay end) {
-  //   final selectedStart = DateTime(date.year, date.month, date.day, start.hour, start.minute);
-  //   final selectedEnd = DateTime(date.year, date.month, date.day, end.hour, end.minute);
-  //
-  //   for (var slot in venue.availableTimeSlots) {
-  //     final slotStart = TimeOfDay(
-  //       hour: int.parse(slot.startTime.split(':')[0]),
-  //       minute: int.parse(slot.startTime.split(':')[1]),
-  //     );
-  //     final slotEnd = TimeOfDay(
-  //       hour: int.parse(slot.endTime.split(':')[0]),
-  //       minute: int.parse(slot.endTime.split(':')[1]),
-  //     );
-  //
-  //     final availableStart = DateTime(date.year, date.month, date.day, slotStart.hour, slotStart.minute);
-  //     final availableEnd = DateTime(date.year, date.month, date.day, slotEnd.hour, slotEnd.minute);
-  //
-  //     if (selectedStart.isAfter(availableStart) && selectedEnd.isBefore(availableEnd)) {
-  //       return true;
-  //     }
-  //   }
-  //   return false;
-  // }
+  bool _isTimeSlotAvailable(Venue venue, DateTime date, TimeOfDay start, TimeOfDay end) {
+    final selectedStart = DateTime(date.year, date.month, date.day, start.hour, start.minute);
+    final selectedEnd = DateTime(date.year, date.month, date.day, end.hour, end.minute);
+
+    for (var slot in venue.availableTimeSlots) {
+      final slotStart = TimeOfDay(
+        hour: int.parse(slot.startTime.split(':')[0]),
+        minute: int.parse(slot.startTime.split(':')[1]),
+      );
+      final slotEnd = TimeOfDay(
+        hour: int.parse(slot.endTime.split(':')[0]),
+        minute: int.parse(slot.endTime.split(':')[1]),
+      );
+
+      final availableStart = DateTime(date.year, date.month, date.day, slotStart.hour, slotStart.minute);
+      final availableEnd = DateTime(date.year, date.month, date.day, slotEnd.hour, slotEnd.minute);
+
+      if (selectedStart.isAfter(availableStart) && selectedEnd.isBefore(availableEnd)) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   @override
   void initState() {
@@ -108,27 +97,21 @@ class _CreateEventState extends State<CreateEvent> {
                     ),
               ),
               SizedBox(height: 10),
-              Text(
-                'Event Title',
-                style: Lightt14,
-              ),
-              SizedBox(
-                height: 5,
-              ),
+              Text('Event Title', style: Lightt14),
+              SizedBox(height: 5),
               TextField(
-                decoration: InputDecoration(
-                    isDense: true,
-                    filled: true,
-                    fillColor: Colors.white12,
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: white), // Set the border color
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    hintText: 'Title',
-                    hintStyle: Regulart16
-                    // You can add more properties like prefixIcon, suffixIcon, labelText, etc.
-                    ),
-              ),
+                  decoration: InputDecoration(
+                      isDense: true,
+                      filled: true,
+                      fillColor: Colors.white12,
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: white), // Set the border color
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      hintText: 'Title',
+                      hintStyle: Regulart16
+                      // You can add more properties like prefixIcon, suffixIcon, labelText, etc.
+                      )),
               SizedBox(height: 10),
               Text(
                 'Select Category',
@@ -159,12 +142,7 @@ class _CreateEventState extends State<CreateEvent> {
                           ),
                           items: ['Singer', 'Music', 'other'].map((String value) {
                             return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(
-                                value,
-                                style: Lightt12.copyWith(color: Colors.black),
-                              ),
-                            );
+                                value: value, child: Text(value, style: Lightt12.copyWith(color: Colors.black)));
                           }).toList(),
                           onChanged: (String? value) {
                             if (value == null) return;
@@ -206,11 +184,11 @@ class _CreateEventState extends State<CreateEvent> {
               SizedBox(
                 height: 5,
               ),
-              DropdownButtonFormField<BandModel>(
+              DropdownButtonFormField<Venue>(
                 decoration: InputDecoration(labelText: 'Select Venue'),
                 value: _selectedVenue,
                 items: _venues.map((venue) {
-                  return DropdownMenuItem<BandModel>(
+                  return DropdownMenuItem<Venue>(
                     value: venue,
                     child: Text(venue.name),
                   );
@@ -255,7 +233,6 @@ class _CreateEventState extends State<CreateEvent> {
                     hintText: 'Tickets',
                     hintStyle: Regulart16),
               ),
-
               ElevatedButton(
                 onPressed: () async {
                   final date = await showDatePicker(
